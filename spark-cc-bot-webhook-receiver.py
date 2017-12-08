@@ -56,7 +56,9 @@ class webhook(object):
         print("\nWEBHOOK POST RECEIVED:")
         print(json_data, "\n")
 
-        webhook_obj = Webhook(json_data)                        # Create a Webhook object from the JSON data
+        json_msg_data = api.messages.get(json_data['data']['id'])
+
+        webhook_obj = Webhook(json_msg_data)                        # Create a Webhook object from the JSON data
         room = api.rooms.get(webhook_obj.data.roomId)           # Get the room details
         message = api.messages.get(webhook_obj.data.id)         # Get the message details
         person = api.people.get(message.personId)               # Get the sender's details
@@ -84,5 +86,5 @@ class webhook(object):
 
 if __name__ == '__main__':
     # Start the web.py web server
-    api.webhooks.create("webhook", "http://chribbsdesign.com.au:8080/sparkwebhook","messages","all")
+    api.webhooks.create("webhook", "http://chribbsdesign.com.au:8080/sparkwebhook","messages","created")
     app.run()

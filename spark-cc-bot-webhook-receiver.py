@@ -1,4 +1,4 @@
-'#!/usr/bin/env python2
+#!/usr/bin/env python2
 #  -*- coding: utf-8 -*-
 """A simple bot script.
 This sample script leverages web.py (see http://webpy.org/).  By default the

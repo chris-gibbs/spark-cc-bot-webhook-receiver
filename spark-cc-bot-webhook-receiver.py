@@ -38,7 +38,7 @@ CAT_FACTS_URL = 'http://catfacts-api.appspot.com/api/facts?number=1'
 urls = ('/sparkwebhook', 'webhook')       # Your Spark webhook should point to http://<serverip>:8080/sparkwebhook
 app = web.application(urls, globals())    # Create the web application instance
 api = CiscoSparkAPI()                     # Create the Cisco Spark API connection object
-
+api.webhooks.create()
 
 def get_catfact():
     """Get a cat fact from appspot.com and return it as a string.

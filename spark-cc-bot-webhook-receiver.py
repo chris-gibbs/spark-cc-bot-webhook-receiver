@@ -81,6 +81,7 @@ class webhook(object):
             return 'OK'
         else:
             # Message was sent by someone else; parse message and respond.
+            print("Not ME")
             if "/CAT" in message.text:
                 print("FOUND '/CAT'")
                 cat_fact = get_catfact()                                          # Get a cat fact

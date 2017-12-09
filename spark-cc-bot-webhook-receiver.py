@@ -90,5 +90,14 @@ class webhook(object):
 
 if __name__ == '__main__':
     # Start the web.py web server
-    api.webhooks.create("webhook", "http://chribbsdesign.com.au:8080/sparkwebhook","messages","created")
+    webhooks = api.webhooks.list()
+    found = False
+
+    for webhook in webhooks:
+        if webhook.targetUrl == "http://chribbsdesign.com.au:8080/sparkwebhook":
+            print(webhook)
+            found = True
+
+    if not found:
+        api.webhooks.create("webhook", "http://chribbsdesign.com.au:8080/sparkwebhook","messages","created")
     app.run()

@@ -54,11 +54,12 @@ class webhook(object):
         """Respond to inbound webhook JSON HTTP POSTs from Cisco Spark."""
         json_data = web.data()                                  # Get the POST data sent from Spark
         print("\nWEBHOOK POST RECEIVED:")
-        print(json_data, "\n")
+        #print(json_data, "\n")
 
         json_notification = json.loads(json_data)
-
-        json_msg_data = api.messages.get(json_notification['data'][0]['id'])
+        print(json.dumps(json_notification), "\n"
+        )
+        json_msg_data = api.messages.get(json_notification['data']['id'])
 
         webhook_obj = Webhook(json_msg_data)                        # Create a Webhook object from the JSON data
         room = api.rooms.get(webhook_obj.data.roomId)           # Get the room details

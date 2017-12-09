@@ -77,6 +77,7 @@ class webhook(object):
         me = api.people.me()
         if message.personId == me.id:
             # Message was sent by me (bot); do not respond.
+            print("Message sent by me. Return OK")
             return 'OK'
         else:
             # Message was sent by someone else; parse message and respond.

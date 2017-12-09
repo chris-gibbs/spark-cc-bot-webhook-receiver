@@ -58,11 +58,11 @@ class webhook(object):
 
         json_notification = json.loads(json_data)
         print(json.dumps(json_notification), "\n")
-
-        msg_data = api.messages.get(json_notification['data']['id'])
-        
     
-        webhook_obj = Webhook(json_data)                    # Create a Webhook object from the JSON data
+        webhook_obj = Webhook(json_notification)                    # Create a Webhook object from the JSON data
+
+        #msg_data = api.messages.get(json_notification['data']['id'])
+
         #room = api.rooms.get(webhook_obj.data.roomId)           # Get the room details
         #message = api.messages.get(webhook_obj.data.id)         # Get the message details
         #person = api.people.get(message.personId)               # Get the sender's details

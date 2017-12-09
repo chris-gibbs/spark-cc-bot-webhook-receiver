@@ -56,7 +56,7 @@ class webhook(object):
         print("\nWEBHOOK POST RECEIVED:")
         print(json_data, "\n")
 
-        json_msg_data = api.messages.get(json_data['data'][[0]'id'])
+        json_msg_data = api.messages.get(json_data['data'][[0]['id'])
 
         webhook_obj = Webhook(json_msg_data)                        # Create a Webhook object from the JSON data
         room = api.rooms.get(webhook_obj.data.roomId)           # Get the room details

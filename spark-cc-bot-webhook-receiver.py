@@ -115,6 +115,13 @@ class webhook(object):
                 timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(currentPriceJSON['timestamp'])))
                 message_text = "DASH: $" + currentPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + timestamp
                 response_message = api.messages.create(room.id, text=message_text)
+            if "LITE" in message.text:
+                print ("Requesting BTC rate")
+                currentPriceJSON = GetBitFinexPrice("ltcusd")
+                convertedPrice = GetCurrencyConversion("USD","AUD",currentPriceJSON['last_price'])
+                timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(currentPriceJSON['timestamp'])))
+                message_text = "LITECOIN: $" + currentPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + timestamp
+                response_message = api.messages.create(room.id, text=message_text)
             if "zork" in message.text:
                 print ("Requesting Zork")
                 currentBTCPriceJSON = GetBitFinexPrice("btcusd")

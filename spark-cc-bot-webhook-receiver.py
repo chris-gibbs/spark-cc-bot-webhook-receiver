@@ -43,7 +43,7 @@ urls = ('/sparkwebhook', 'webhook')       # Your Spark webhook should point to h
 app = web.application(urls, globals())    # Create the web application instance
 api = CiscoSparkAPI()                     # Create the Cisco Spark API connection object
 
-def getPrice(CoinType):
+def GetBitFinexPrice(CoinType):
     priceURL = BitFinexTickerAPI + CoinType
     response = requests.get(priceURL, verify=False)
     response_dict = json.loads(response.text)
@@ -85,7 +85,7 @@ class webhook(object):
             print("Not ME")
             if "IOTA" in message.text:
                 print ("Requesting IOTA rate")
-                current_IOTA = getIOTA("iotusd")
+                current_IOTA = GetBitFinexPrice("iotusd")
                 response_message = api.messages.create(room.id, text=currentIOTA)
         return 'OK'
 

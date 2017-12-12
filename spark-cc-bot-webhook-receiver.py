@@ -48,11 +48,11 @@ app = web.application(urls, globals())    # Create the web application instance
 api = CiscoSparkAPI()                     # Create the Cisco Spark API connection object
 
 def GetCurrencyConversion (base, symbol, value):
-    requestURL = CurrencyConversionAPI + '?base=' + base + '&symbol' + symbol  
+    requestURL = CurrencyConversionAPI + '?base=' + base + '&symbols' + symbol  
     response = requests.get(requestURL, verify=False)
     responseJSON = json.loads(response.text)
     print(responseJSON)
-    return (value * responseJSON[symbol])
+    return (value * responseJSON['rates'][symbol])
 
 def GetBitFinexPrice(CoinType):
     priceURL = BitFinexTickerAPI + CoinType

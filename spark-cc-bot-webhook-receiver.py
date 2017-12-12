@@ -38,10 +38,21 @@ BitFinexTickerAPI = BitFinexAPI + 'ticker/'
 CoindeskAPI = 'https://api.coindesk.com/v1/'
 CoindeskBTC = CoindeskAPI + 'bpi/currentprice.json'
 
+# Currency Conversion API
+CurrencyConversionAPI = "https://api.fixer.io/latest"
+# ?base=AUD&symbols=USD
+
 # Global variables
 urls = ('/sparkwebhook', 'webhook')       # Your Spark webhook should point to http://<serverip>:8080/sparkwebhook
 app = web.application(urls, globals())    # Create the web application instance
 api = CiscoSparkAPI()                     # Create the Cisco Spark API connection object
+
+def GetCurrencyConversion (base, symbol, value):
+    requestURL = CurrencyConversionAPI + '?base=' + base + '&symbol' + symbol  
+    responseJSON = requests.get(requestURL, verify=false)
+    return value * responseJSON['data']['symbol']
+
+
 
 def GetBitFinexPrice(CoinType):
     priceURL = BitFinexTickerAPI + CoinType
@@ -86,12 +97,14 @@ class webhook(object):
             if "IOTA" in message.text:
                 print ("Requesting IOTA rate")
                 currentIOTAPriceJSON = GetBitFinexPrice("iotusd")
-                message_text = "IOTA: $" + currentIOTAPriceJSON['last_price'] + ' (USD) + Timestamp: ' + currentIOTAPriceJSON['timestamp']
+                convertedPrice = GetCurrencyConversion("AU","USD",currentIOTAPriceJSON['last_price'])
+                message_text = "IOTA: $" + currentIOTAPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + currentIOTAPriceJSON['timestamp']
                 response_message = api.messages.create(room.id, text=message_text)
             if "BTC" in message.text:
                 print ("Requesting BTC rate")
                 currentBTCPriceJSON = GetBitFinexPrice("btcusd")
-                message_text = "Bitcoin: $" + currentBTCPriceJSON['last_price'] + ' (USD) + Timestamp: ' + currentBTCPriceJSON['timestamp']
+                convertedPrice = GetCurrencyConversion("AU","USD",currentBTCPriceJSON['last_price'])
+                message_text = "IOTA: $" + currentBTCPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + currentBTCPriceJSON['timestamp']
                 response_message = api.messages.create(room.id, text=message_text)
             if "zork" in message.text:
                 print ("Requesting Zork")

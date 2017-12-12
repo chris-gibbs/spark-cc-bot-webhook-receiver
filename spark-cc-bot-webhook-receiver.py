@@ -96,17 +96,24 @@ class webhook(object):
             print("Not ME")
             if "IOTA" in message.text:
                 print ("Requesting IOTA rate")
-                currentIOTAPriceJSON = GetBitFinexPrice("iotusd")
-                convertedPrice = GetCurrencyConversion("USD","AUD",currentIOTAPriceJSON['last_price'])
-                timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(currentIOTAPriceJSON['timestamp'])))
-                message_text = "IOTA: $" + currentIOTAPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + timestamp
+                currentPriceJSON = GetBitFinexPrice("iotusd")
+                convertedPrice = GetCurrencyConversion("USD","AUD",currentPriceJSON['last_price'])
+                timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(currentPriceJSON['timestamp'])))
+                message_text = "IOTA: $" + currentPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + timestamp
                 response_message = api.messages.create(room.id, text=message_text)
             if "BTC" in message.text:
                 print ("Requesting BTC rate")
-                currentBTCPriceJSON = GetBitFinexPrice("btcusd")
+                currentPriceJSON = GetBitFinexPrice("btcusd")
                 convertedPrice = GetCurrencyConversion("USD","AUD",currentBTCPriceJSON['last_price'])
-                timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(currentBTCPriceJSON['timestamp'])))
-                message_text = "IOTA: $" + currentBTCPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + timestamp
+                timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(currentPriceJSON['timestamp'])))
+                message_text = "IOTA: $" + currentPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + timestamp
+                response_message = api.messages.create(room.id, text=message_text)
+            if "DASH" in message.text:
+                print ("Requesting BTC rate")
+                currentPriceJSON = GetBitFinexPrice("dshusd")
+                convertedPrice = GetCurrencyConversion("USD","AUD",currentPriceJSON['last_price'])
+                timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(currentPriceJSON['timestamp'])))
+                message_text = "DASH: $" + currentPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + timestamp
                 response_message = api.messages.create(room.id, text=message_text)
             if "zork" in message.text:
                 print ("Requesting Zork")

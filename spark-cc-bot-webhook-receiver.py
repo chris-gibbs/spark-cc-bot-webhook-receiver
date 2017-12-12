@@ -98,13 +98,15 @@ class webhook(object):
                 print ("Requesting IOTA rate")
                 currentIOTAPriceJSON = GetBitFinexPrice("iotusd")
                 convertedPrice = GetCurrencyConversion("AUD","USD",currentIOTAPriceJSON['last_price'])
-                message_text = "IOTA: $" + currentIOTAPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + currentIOTAPriceJSON['timestamp']
+                time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(currentIOTAPriceJSON['timestamp']))
+                message_text = "IOTA: $" + currentIOTAPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + time
                 response_message = api.messages.create(room.id, text=message_text)
             if "BTC" in message.text:
                 print ("Requesting BTC rate")
                 currentBTCPriceJSON = GetBitFinexPrice("btcusd")
                 convertedPrice = GetCurrencyConversion("AUD","USD",currentBTCPriceJSON['last_price'])
-                message_text = "IOTA: $" + currentBTCPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + currentBTCPriceJSON['timestamp']
+                time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(currentIOTAPriceJSON['timestamp']))
+                message_text = "IOTA: $" + currentBTCPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + time
                 response_message = api.messages.create(room.id, text=message_text)
             if "zork" in message.text:
                 print ("Requesting Zork")

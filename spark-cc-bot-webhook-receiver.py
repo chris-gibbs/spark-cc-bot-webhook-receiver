@@ -83,7 +83,7 @@ class webhook(object):
         else:
             # Message was sent by someone else; parse message and respond.
             print("Not ME")
-            if "/IOTA" in message.text:
+            if "IOTA" in message.text:
                 print ("Requesting IOTA rate")
                 current_IOTA = getIOTA("iotusd")
                 response_message = api.messages.create(room.id, text=currentIOTA)

@@ -104,7 +104,7 @@ class webhook(object):
             if "BTC" in message.text:
                 print ("Requesting BTC rate")
                 currentPriceJSON = GetBitFinexPrice("btcusd")
-                convertedPrice = GetCurrencyConversion("USD","AUD",currentBTCPriceJSON['last_price'])
+                convertedPrice = GetCurrencyConversion("USD","AUD",currentPriceJSON['last_price'])
                 timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(currentPriceJSON['timestamp'])))
                 message_text = "IOTA: $" + currentPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + timestamp
                 response_message = api.messages.create(room.id, text=message_text)

@@ -30,23 +30,24 @@ import requests
 from ciscosparkapi import CiscoSparkAPI, Webhook
 
 
-# Module constants
-CAT_FACTS_URL = 'http://catfacts-api.appspot.com/api/facts?number=1'
+# BitFinexAPIs
+BitFinexAPI = 'https://api.bitfinex.com/v1/'
+BitFinexTickerAPI = BitFinexAPI + 'ticker/'
 
+# Coindesk APIs
+CoindeskAPI = 'https://api.coindesk.com/v1/'
+CoindeskBTC = CoindeskAPI + 'bpi/currentprice.json'
 
 # Global variables
 urls = ('/sparkwebhook', 'webhook')       # Your Spark webhook should point to http://<serverip>:8080/sparkwebhook
 app = web.application(urls, globals())    # Create the web application instance
 api = CiscoSparkAPI()                     # Create the Cisco Spark API connection object
 
-def get_catfact():
-    """Get a cat fact from appspot.com and return it as a string.
-    Functions for Soundhound, Google, IBM Watson, or other APIs can be added
-    to create the desired functionality into this bot.
-    """
-    response = requests.get(CAT_FACTS_URL, verify=False)
+def getPrice(CoinType):
+    priceURL = BitFinexTickerAPI + CoinType
+    response = requests.get(, verify=False)
     response_dict = json.loads(response.text)
-    return response_dict['facts'][0]
+    return response_dict
 
 
 class webhook(object):
@@ -82,11 +83,10 @@ class webhook(object):
         else:
             # Message was sent by someone else; parse message and respond.
             print("Not ME")
-            if "/CAT" in message.text:
-                print("FOUND '/CAT'")
-                cat_fact = get_catfact()                                          # Get a cat fact
-                print("SENDING CAT FACT '{}'".format(cat_fact))
-                response_message = api.messages.create(room.id, text=cat_fact)    # Post the fact to the room where the request was received
+            if "/IOTA" in message.text:
+                print ("Requesting IOTA rate")
+                current_IOTA = getIOTA("iotusd")
+                response_message = api.messages.create(room.id, text=currentIOTA)
         return 'OK'
 
 

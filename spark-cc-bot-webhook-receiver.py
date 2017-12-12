@@ -85,8 +85,8 @@ class webhook(object):
             print("Not ME")
             if "IOTA" in message.text:
                 print ("Requesting IOTA rate")
-                current_IOTA = GetBitFinexPrice("iotusd")
-                response_message = api.messages.create(room.id, text=currentIOTA)
+                currentIOTAPrice = GetBitFinexPrice("iotusd")
+                response_message = api.messages.create(room.id, text=currentIOTAPrice)
         return 'OK'
 
 

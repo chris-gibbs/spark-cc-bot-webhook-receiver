@@ -45,7 +45,7 @@ api = CiscoSparkAPI()                     # Create the Cisco Spark API connectio
 
 def getPrice(CoinType):
     priceURL = BitFinexTickerAPI + CoinType
-    response = requests.get(, verify=False)
+    response = requests.get(priceURL, verify=False)
     response_dict = json.loads(response.text)
     return response_dict
 

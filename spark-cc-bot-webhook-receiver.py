@@ -52,7 +52,7 @@ def GetCurrencyConversion (base, symbol, value):
     response = requests.get(requestURL, verify=False)
     responseJSON = json.loads(response.text)
     print(responseJSON)
-    return str(round((float(value) * responseJSON['rates'][symbol]),3))
+    return str(round((float(value) * responseJSON['rates'][symbol]),4))
 
 def GetBitFinexPrice(CoinType):
     priceURL = BitFinexTickerAPI + CoinType
@@ -103,7 +103,7 @@ class webhook(object):
             if "BTC" in message.text:
                 print ("Requesting BTC rate")
                 currentBTCPriceJSON = GetBitFinexPrice("btcusd")
-                convertedPrice = GetCurrencyConversion("AU","USD",currentBTCPriceJSON['last_price'])
+                convertedPrice = GetCurrencyConversion("AUD","USD",currentBTCPriceJSON['last_price'])
                 message_text = "IOTA: $" + currentBTCPriceJSON['last_price'] + ' (USD). $' + convertedPrice + '(AU). Timestamp: ' + currentBTCPriceJSON['timestamp']
                 response_message = api.messages.create(room.id, text=message_text)
             if "zork" in message.text:

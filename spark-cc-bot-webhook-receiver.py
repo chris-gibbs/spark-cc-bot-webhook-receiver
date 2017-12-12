@@ -51,7 +51,7 @@ def GetCurrencyConversion (base, symbol, value):
     requestURL = CurrencyConversionAPI + '?base=' + base + '&symbol' + symbol  
     response = requests.get(requestURL, verify=False)
     responseJSON = json.loads(response.text)
-    return (value * responseJSON['rates'][symbol])
+    return (value * responseJSON[symbol])
 
 def GetBitFinexPrice(CoinType):
     priceURL = BitFinexTickerAPI + CoinType

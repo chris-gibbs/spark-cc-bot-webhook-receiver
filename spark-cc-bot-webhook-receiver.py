@@ -50,7 +50,7 @@ api = CiscoSparkAPI()                     # Create the Cisco Spark API connectio
 def GetCurrencyConversion (base, symbol, value):
     requestURL = CurrencyConversionAPI + '?base=' + base + '&symbol' + symbol  
     responseJSON = requests.get(requestURL, verify=False)
-    return value * responseJSON['data']['symbol']
+    return value * responseJSON['rates'][symbol]
 
 
 

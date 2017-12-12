@@ -93,7 +93,11 @@ class webhook(object):
                 currentBTCPriceJSON = GetBitFinexPrice("btcusd")
                 message_text = "Bitcoin: $" + currentBTCPriceJSON['last_price'] + ' (USD) + Timestamp: ' + currentBTCPriceJSON['timestamp']
                 response_message = api.messages.create(room.id, text=message_text)
-
+            if "zork" in message.text:
+                print ("Requesting Zork")
+                currentBTCPriceJSON = GetBitFinexPrice("btcusd")
+                message_text = "NO! Just No " + person.displayName
+                response_message = api.messages.create(room.id, text=message_text)
         return 'OK'
 
 
